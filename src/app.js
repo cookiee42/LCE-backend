@@ -18,17 +18,15 @@ app.use(
         origin: function (origin, callback) {
             if (!origin) return callback(null, true);
 
-            // Allow production origin
+            // Allow production domain
             if (allowedOrigins.includes(origin)) {
                 return callback(null, true);
             }
 
-            // Allow any Vercel preview deployment
-            if (/^https:\/\/lce-app-amxc-.*\.vercel\.app$/.test(origin)) {
+            if (/^https:\/\/lce-app-amxc(-.*)?\.vercel\.app$/.test(origin)) {
                 return callback(null, true);
             }
 
-            // Otherwise block
             return callback(new Error("Not allowed by CORS: " + origin));
         },
         credentials: true,
